@@ -10,6 +10,8 @@
 #import "KSImageNamedIndexCompletionItem.h"
 #import "MethodSwizzle.h"
 
+#import "KSImageNamed.h"
+
 @implementation DVTTextCompletionController (KSImageNamed)
 
 + (void)load
@@ -24,15 +26,15 @@
     if (success) {
         @try {
             NSRange range = [[self textView] realSelectedRange];
-            NSString * const stringToMatch = @"mage imageNamed:";
-            
-            //If an autocomplete causes imageNamed: to get inserted, remove the token and immediately pop up autocomplete
-            if (range.location > [stringToMatch length]) {
-                NSString *insertedString = [[[self textView] string] substringWithRange:NSMakeRange(range.location - [stringToMatch length], [stringToMatch length])];
-                
-                if ([insertedString isEqualToString:stringToMatch]) {
-                    [[self textView] _replaceCellWithCellText:@""];
-                    [self _showCompletionsAtCursorLocationExplicitly:YES];
+            for (NSString *complitition in [[KSImageNamed sharedPlugin] compplititionStrings]) {
+                //If an autocomplete causes imageNamed: to get inserted, remove the token and immediately pop up autocomplete
+                if (range.location > [complitition length]) {
+                    NSString *insertedString = [[[self textView] string] substringWithRange:NSMakeRange(range.location - [complitition length], [complitition length])];
+                    
+                    if ([insertedString isEqualToString:complitition]) {
+                        [[self textView] _replaceCellWithCellText:@""];
+                        [self _showCompletionsAtCursorLocationExplicitly:YES];
+                    }
                 }
             }
         } @catch (NSException *exception) {

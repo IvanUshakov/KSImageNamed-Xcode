@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface KSImageNamed : NSObject
+@property(strong, readonly, nonatomic) NSArray *compplititionStrings;
 
 + (instancetype)sharedPlugin;
 

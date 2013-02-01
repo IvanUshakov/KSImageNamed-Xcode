@@ -14,6 +14,7 @@ NSString * const KSShowExtensionInImageCompletionDefaultKey = @"KSShowExtensionI
 
 @interface KSImageNamed ()
 @property(nonatomic, strong) NSMutableDictionary *imageCompletions;
+@property(strong, nonatomic) NSArray *compplititionStrings;
 @end
 
 @implementation KSImageNamed
@@ -38,6 +39,7 @@ NSString * const KSShowExtensionInImageCompletionDefaultKey = @"KSShowExtensionI
 {
     if ( (self = [super init]) ) {
         [self setImageCompletions:[NSMutableDictionary dictionary]];
+        self.compplititionStrings = @[@"UIImage imageNamed:", @"NSImage imageNamed:", @"SPImage imageWithContentsOfFile:"];
     }
     return self;
 }
